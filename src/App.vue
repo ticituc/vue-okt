@@ -1,71 +1,57 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import { computed, onMounted, reactive, ref, watch } from 'vue';
-
-import type { Task } from '@/contract/Task';
-
-import AddItem from "./components/todo/AddItem.vue";
-import ItemInput from "./components/todo/ItemInput.vue";
-
-import TaskList from "./components/todo/TaskList.vue";
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useTaskStore } from './stores/task';
+import { useAuthStore } from './stores/auth';
 
+const router = useRouter();
 
 const taskStore = useTaskStore();
 
 
-const taskList = ref<Task[]>([]);
-const task = ref<Task>();
+console.log("window.location:", window.location);
 
-task.value = {
-  id: -1,
-  description: "Test",
-  storyPoint: 3
+
+function delayNavigate() {
+  setTimeout(() => {
+    router.push({ name: "todoItem", params: { id: 3 } })
+  }, 5000);
 
 }
-
-async function itemAdded() {
-  if (task.value) {
-    await taskStore.addTask(task.value);
-  }
-
-  task.value = {
-    id: -1,
-    description: '',
-    storyPoint: 0,
-  }
+const authStore = useAuthStore();
+function authorization() {
+  authStore.isAuth = true;
 }
- 
-
-onMounted(() => {
-  taskStore.getTasks()
-})
-
 
 </script>
 
 <template>
-  <div class="container">
+  <div class="">
 
+    <header>
 
-    <TaskList :tasks="taskStore.tasks" class="row">
-      <template v-slot:header>
-        Override Header Value
-      </template>
+      <button class="btn btn-danger" @click="authorization">Login</button>
+      <br />
+      <br />
+      <a href="/about">About</a>
+      <br />
+      <RouterLink to="about">About Router Link</RouterLink>
 
+      <br />
+      <br />
 
-      Override Slot Value
+      <a href="/todo-item/2">TODO ITem</a>
+      <br />
+      <RouterLink :to="{ name: 'todoItem', params: { id: '2' } }">About Router Link</RouterLink>
 
-      <template v-slot:footer>
-        Override Footer Value
-      </template>
-    </TaskList>
+    </header>
 
-    <div class="row">
-      <ItemInput v-model="task" class="col-12" @save="itemAdded">
-        Add new Task
-      </ItemInput>
-    </div>
+    <pre>{{ taskStore.tasks }}</pre>
+
+    <button class="btn btn-warning" @click="delayNavigate">Delay Navigate</button>
+
+    <RouterView></RouterView>
+    <footer>Footer</footer>
+
 
   </div>
 </template>
