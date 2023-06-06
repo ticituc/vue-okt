@@ -13,7 +13,6 @@ const task = ref<Task>({
 });
 
 watch(props, (propValue) => {
-    console.log("Change", propValue.modelValue.description ?? "");
     if (description.value != propValue.modelValue.description) {
         description.value = propValue.modelValue.description;
     }
@@ -21,7 +20,6 @@ watch(props, (propValue) => {
         storyPoint.value = propValue.modelValue.storyPoint;
     }
 });
-
 
 
 const valid = computed(() => {

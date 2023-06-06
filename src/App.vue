@@ -48,11 +48,7 @@ function modelChange(newVal: any) {
     </template>
   </TaskList>
 
-
-
-  <!--<AddItem @item-added="itemAdded"></AddItem>-->
   Task:
-  <pre>{{ task }}</pre>
   <ItemInput v-model="task"></ItemInput>
   <ItemInput @change="modelChange" :modelValue="task"></ItemInput>
 
