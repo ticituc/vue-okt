@@ -14,9 +14,10 @@ const props = defineProps<{ task: Task }>()
                 Task Description: {{ props.task.description }}
                 Story point: {{ props.task.storyPoint }}
             </div>
-            <ItemInput class="" :modelValue="props.task">
+
+            <!--<ItemInput class="" :modelValue="props.task">
                 Edit Task
-            </ItemInput>
+            </ItemInput>-->
         </div>
 
 

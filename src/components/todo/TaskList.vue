@@ -17,6 +17,7 @@ const props = defineProps({
         <p class="body w-100">
             <slot> Slot Default Value</slot>
         </p>
+        
         <Task v-for="task of props.tasks" :task="task"></Task>
 
         <p class="footer w-100">

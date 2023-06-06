@@ -1,10 +1,12 @@
+
 <script setup lang="ts">
 import type { Task } from '@/contract/Task';
+import { useTaskStore } from '@/stores/task';
 import { computed, ref, watch } from 'vue';
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue', "save"])
-
+const taskStore = useTaskStore();
 
 const task = ref<Task>({
     description: props.modelValue?.description ?? "",
@@ -65,8 +67,8 @@ const storyPoint = computed({
 <template>
     <div class="row">
         <div class="col-12">
-        <slot>Add new Task:</slot>
-    </div>
+            <slot>Add new Task:</slot>
+        </div>
         <div class="col-6">
             <input type="text" v-model="description" />
         </div>
@@ -78,8 +80,10 @@ const storyPoint = computed({
         </div>
 
         <!--<button class="btn btn-primary" @click="$emit('save')" :disabled="!valid">Submit</button>-->
+        Progress: {{ taskStore.saveInProgress }}
         <div class="col-12">
-            <button class="btn btn-primary" @click="$emit('save')" :disabled="!valid">Submit</button>
+            <button class="btn btn-primary" @click="$emit('save')"
+                :disabled="!valid || taskStore.saveInProgress">Submit</button>
         </div>
 
     </div>

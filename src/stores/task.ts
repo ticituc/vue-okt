@@ -1,7 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Task } from '@/contract/Task'
-
+import axios from "axios"
+import { useRandomStore } from './random'
 /**
  * 
 
@@ -18,7 +19,8 @@ export const useCounterStore = defineStore('counter', () => {
 
 interface TaskState {
   tasks: Task[],
-  taskListActive: Boolean,
+  taskListActive: boolean,
+  saveInProgress: boolean
 }
 
 
@@ -26,36 +28,16 @@ interface TaskState {
 export const useTaskStore = defineStore('task', {
   state: (): TaskState => ({
     tasks: [
-      {
-        id: 1,
-        description: "Test 1",
-        storyPoint: 1,
-      },
-      {
-        id: 2,
-        description: "Test 2",
-        storyPoint: 1,
-      },
-      {
-        id: 3,
-        description: "Test 3",
-        storyPoint: 1,
-      },
-      {
-        id: 4,
-        description: "Test 4",
-        storyPoint: 1,
-      },
-      {
-        id: 5,
-        description: "Test 5",
-        storyPoint: 1,
-      }
+
     ],
     taskListActive: false,
+    saveInProgress: false
   }
   ),
   getters: {
+    localTasks() {
+      return JSON.parse(localStorage.getItem('tasks') ?? "");
+    },
     firstTask(state) {
       if (state.tasks.length > 0) {
         return state.tasks[0];
@@ -67,12 +49,46 @@ export const useTaskStore = defineStore('task', {
           return findTask.id == taskId;
         });
       }
-    }
+    },
 
+    getRandomTask(state) {
+      this.getTaskById(this.randomStore.makeRandomNumber());
+    },
+    randomStore() {
+      const randomStore = useRandomStore()
+
+      return randomStore;
+    }
   },
   actions: {
-    addTask(task: Task): void {
-      this.tasks.push(task);
+    async addTask(task: Task): Promise<Task> {
+      const res = await axios.post("http://localhost:3000/add", task);
+
+      this.tasks.push(res.data);
+
+      return res.data;
+
     },
+    async getTasks(force?: boolean) {
+
+      if (this.tasks.length == 0 || force) {
+
+        const res = await axios.get("http://localhost:3000/get")
+
+        if (res.status >= 200 && res.status < 300) {
+          this.tasks = res.data as Task[];
+
+          return this.tasks;
+        }
+        throw new Error("Error with the request");
+      }
+
+      return this.tasks;
+    }
   },
 })
+
+
+
+
+

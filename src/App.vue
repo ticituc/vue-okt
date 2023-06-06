@@ -24,9 +24,9 @@ task.value = {
 
 }
 
-function itemAdded() {
+async function itemAdded() {
   if (task.value) {
-    taskList.value.push(task.value);
+    await taskStore.addTask(task.value);
   }
 
   task.value = {
@@ -35,23 +35,24 @@ function itemAdded() {
     storyPoint: 0,
   }
 }
+ 
 
-//const taskStore = useTaskStore();
+onMounted(() => {
+  taskStore.getTasks()
+})
 
-
-function modelChange(newVal: any) {
-  console.log("Model new Value", newVal);
-}
 
 </script>
 
 <template>
   <div class="container">
 
+
     <TaskList :tasks="taskStore.tasks" class="row">
       <template v-slot:header>
         Override Header Value
       </template>
+
 
       Override Slot Value
 
