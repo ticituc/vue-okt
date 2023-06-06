@@ -20,9 +20,15 @@ task.value = {
 
 }
 
+function itemAdded() {
+  if (task.value) {
+    taskList.value.push(task.value);
+  }
 
-function itemAdded(task: Task) {
-  taskList.value.push(task);
+  task.value = {
+    description: '',
+    storyPoint: 0,
+  }
 }
 
 //const taskStore = useTaskStore();
@@ -32,28 +38,30 @@ function modelChange(newVal: any) {
   console.log("Model new Value", newVal);
 }
 
-
 </script>
 
 <template>
-  <TaskList :tasks="taskList">
-    <template v-slot:header>
-      Override Header Value
-    </template>
+  <div class="container">
 
-    Override Slot Value
+    <TaskList :tasks="taskList" class="row">
+      <template v-slot:header>
+        Override Header Value
+      </template>
 
-    <template v-slot:footer>
-      Override Footer Value
-    </template>
-  </TaskList>
+      Override Slot Value
 
-  Task:
-  <ItemInput v-model="task"></ItemInput>
-  <ItemInput @change="modelChange" :modelValue="task"></ItemInput>
+      <template v-slot:footer>
+        Override Footer Value
+      </template>
+    </TaskList>
 
-  <TaskList :tasks="taskList" style="margin-top:100px">
-  </TaskList>
+    <div class="row">
+      <ItemInput v-model="task" class="col-12" @save="itemAdded">
+        Add new Task
+      </ItemInput>
+    </div>
+    
+  </div>
 </template>
 
 <style scoped></style>

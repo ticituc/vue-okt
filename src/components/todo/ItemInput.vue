@@ -2,10 +2,9 @@
 import type { Task } from '@/contract/Task';
 import { computed, ref, watch } from 'vue';
 
-//TODO: add some design import 
-
 const props = defineProps(['modelValue'])
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', "save"])
+
 
 const task = ref<Task>({
     description: props.modelValue?.description ?? "",
@@ -64,20 +63,24 @@ const storyPoint = computed({
 </script>
 
 <template>
-    <div>
+    <div class="row">
+        <div class="col-12">
+        <slot>Add new Task:</slot>
+    </div>
+        <div class="col-6">
+            <input type="text" v-model="description" />
+        </div>
+        <div class="col-6">
+            <input type="number" v-model="storyPoint" />
+        </div>
+        <div class="col-12">
+            <span v-if="!valid">Nem valid értékek</span>
+        </div>
 
-        Add new Task:
-
-        Is Value
-        <pre>{{ valid }}</pre>
-
-        <input type="text" v-model="description" />
-        
-        <input type="number" v-model="storyPoint" />
-
-        <span v-if="!valid">Nem valid értékek</span>
-
-        <!--<button @click="submit" :disabled="!valid">Submit</button>-->
+        <!--<button class="btn btn-primary" @click="$emit('save')" :disabled="!valid">Submit</button>-->
+        <div class="col-12">
+            <button class="btn btn-primary" @click="$emit('save')" :disabled="!valid">Submit</button>
+        </div>
 
     </div>
 </template>

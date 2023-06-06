@@ -11,15 +11,15 @@ const props = defineProps({
 
 <template>
     <section>
-        <h1>
+        <h1 class="w-100">
             <slot name="header"> Task List Header</slot>
         </h1>
-        <p class="body">
+        <p class="body w-100">
             <slot> Slot Default Value</slot>
         </p>
         <Task v-for="task of props.tasks" :task="task"></Task>
 
-        <p class="footer">
+        <p class="footer w-100">
             <slot name="footer"> Task List Footer</slot>
         </p>
     </section>
