@@ -6,7 +6,8 @@ import type { Task } from '@/contract/Task';
 
 import AddItem from "./components/todo/AddItem.vue";
 import TaskList from "./components/todo/TaskList.vue";
-import { useTaskStore } from './stores/counter';
+import { useTaskStore } from './stores/task';
+
 
 const taskList = ref<Task[]>([]);
 

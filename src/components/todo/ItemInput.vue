@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Task } from '@/contract/Task';
 import { computed, ref } from 'vue';
-
+//TODO: refactor, use v-model for  this, and show error messages
 
 const emit = defineEmits<{
     (e: 'item-added', task: Task): void

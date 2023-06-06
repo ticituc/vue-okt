@@ -2,8 +2,6 @@
 import type { Task as TaskInterface } from '@/contract/Task';
 import Task from "./Task.vue";
 
-
-
 const props = defineProps({
     tasks: Array<TaskInterface>,
     active: Boolean,
