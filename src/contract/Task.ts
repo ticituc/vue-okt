@@ -1,8 +1,8 @@
 
 export interface Task {
 
-
-    description:string
-    storyPoint:number
+    id: number,
+    description: string
+    storyPoint: number
 
 }

@@ -17,7 +17,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
 interface TaskState {
-  task: Task[],
+  tasks: Task[],
   taskListActive: Boolean,
 }
 
@@ -25,22 +25,54 @@ interface TaskState {
 
 export const useTaskStore = defineStore('task', {
   state: (): TaskState => ({
-    task: [],
+    tasks: [
+      {
+        id: 1,
+        description: "Test 1",
+        storyPoint: 1,
+      },
+      {
+        id: 2,
+        description: "Test 2",
+        storyPoint: 1,
+      },
+      {
+        id: 3,
+        description: "Test 3",
+        storyPoint: 1,
+      },
+      {
+        id: 4,
+        description: "Test 4",
+        storyPoint: 1,
+      },
+      {
+        id: 5,
+        description: "Test 5",
+        storyPoint: 1,
+      }
+    ],
     taskListActive: false,
   }
   ),
   getters: {
-    getFirstTask(state) {
-      if (state.task.length > 0) {
-        return state.task[0];
+    firstTask(state) {
+      if (state.tasks.length > 0) {
+        return state.tasks[0];
+      }
+    },
+    getTaskById(state) {
+      return (taskId: number): Task | undefined => {
+        return state.tasks.find((findTask) => {
+          return findTask.id == taskId;
+        });
       }
     }
+
   },
   actions: {
     addTask(task: Task): void {
-      this.task.push(task);
-      
-
+      this.tasks.push(task);
     },
   },
 })

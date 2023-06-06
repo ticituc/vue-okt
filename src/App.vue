@@ -11,10 +11,14 @@ import TaskList from "./components/todo/TaskList.vue";
 import { useTaskStore } from './stores/task';
 
 
+const taskStore = useTaskStore();
+
+
 const taskList = ref<Task[]>([]);
 const task = ref<Task>();
 
 task.value = {
+  id: -1,
   description: "Test",
   storyPoint: 3
 
@@ -26,6 +30,7 @@ function itemAdded() {
   }
 
   task.value = {
+    id: -1,
     description: '',
     storyPoint: 0,
   }
@@ -43,7 +48,7 @@ function modelChange(newVal: any) {
 <template>
   <div class="container">
 
-    <TaskList :tasks="taskList" class="row">
+    <TaskList :tasks="taskStore.tasks" class="row">
       <template v-slot:header>
         Override Header Value
       </template>
@@ -60,7 +65,7 @@ function modelChange(newVal: any) {
         Add new Task
       </ItemInput>
     </div>
-    
+
   </div>
 </template>
 
