@@ -7,9 +7,11 @@ import WebshopItem from '../../webshop/WebshopItem.vue'
 describe('HelloWorld', () => {
     it('renders properly', async () => {
         const websComp = mount(WebshopItem, {
-            id: 1,
-            name: "teszt",
-            price: 123,
+            props: {
+                id: 1,
+                name: "teszt",
+                price: 123,
+            }
         });
 
 
@@ -18,9 +20,11 @@ describe('HelloWorld', () => {
         expect(websComp.get('span').text()).toEqual("ID: 1");
 
         const websComp2 = mount(WebshopItem, {
-            id: 1,
-            name: "teszt",
-            price: 123,
+            props: {
+                id: 2,
+                name: "teszt2",
+                price: 321,
+            }
         });
 
         websComp2.setProps({

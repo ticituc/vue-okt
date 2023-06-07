@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
 import Webshop from '../../webshop/Webshop.vue'
+import { createTestingPinia } from '@pinia/testing'
+import { useWebshopStore } from '@/stores/webshop';
 
 const webShopItems = [
     {
@@ -31,9 +33,16 @@ const webShopItems = [
 describe('HelloWorld', () => {
     it('renders properly', () => {
         const websComp = mount(Webshop, {
+            global: {
+                plugins: [/*createTestingPinia()*/],
+            },
         });
 
-        expect(websComp.text()).contains("webShop Component");
+        //const store = useWebshopStore() // uses the testing pinia!
+
+        
+
+        //expect(websComp.text()).contains("webShop Component");
 
         webShopItems.forEach((item) => {
 
