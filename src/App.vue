@@ -28,6 +28,7 @@ function authorization() {
   <div class="">
 
     <header>
+      <ex-test></ex-test>
 
       <button class="btn btn-danger" @click="authorization">Login</button>
       <br />

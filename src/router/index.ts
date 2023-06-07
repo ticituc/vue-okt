@@ -14,7 +14,12 @@ const router = createRouter({
     {
       path: '/todo-item/:id',
       name: 'todoItem',
-      component: TodoItemView
+      component: TodoItemView,
+      beforeEnter:()=>{
+
+      }, 
+      
+      
     },
 
 
@@ -45,6 +50,11 @@ router.beforeEach((to, from) => {
   return true
 })
 
+
+router.afterEach((to, from) => {
+  console.log("TO", to);
+  console.log("From ", from);
+})
 
 
 export default router

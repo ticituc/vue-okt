@@ -1,0 +1,18 @@
+version: "3"
+services:
+    #Nginx Service
+    test:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: vue-okt/node
+        container_name: vue-okt-node
+        mem_limit: 100m
+        mem_reservation: 32M
+        cpus: 0.1
+        restart: unless-stopped
+        tty: true
+        environment:
+            - PORT:80
+        ports:
+            - "5173:80"

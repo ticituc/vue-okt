@@ -1,6 +1,10 @@
 <script>
 
 export default {
+    name:"ex-test", 
+    components:{
+        //Other.vue
+    },
     data: () => {
         return {
             text:"Some Text",
