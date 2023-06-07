@@ -5,6 +5,8 @@ import Webshop from '../../webshop/Webshop.vue'
 import { createTestingPinia } from '@pinia/testing'
 import { useWebshopStore } from '@/stores/webshop';
 
+import { fn } from '@vitest/spy'
+
 const webShopItems = [
     {
         id: 1,
@@ -34,18 +36,26 @@ describe('HelloWorld', () => {
     it('renders properly', () => {
         const websComp = mount(Webshop, {
             global: {
-                plugins: [/*createTestingPinia()*/],
+                plugins: [createTestingPinia({
+                    createSpy: fn,
+                    initialState: {
+                        
+                    },
+                }),],
             },
         });
 
+        const webshopStore = useWebshopStore()
+
+        expect(webshopStore.getData).toHaveBeenCalledTimes(1)
         //const store = useWebshopStore() // uses the testing pinia!
 
-        
+
 
         //expect(websComp.text()).contains("webShop Component");
 
         webShopItems.forEach((item) => {
-
+            console.log("websComp.text()", websComp.text());
             expect(websComp.text()).contains("ID: " + item.id);
             expect(websComp.text()).contains(item.name);
             expect(websComp.text()).contains(item.price + " Ft");

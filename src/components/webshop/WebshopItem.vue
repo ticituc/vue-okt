@@ -1,16 +1,18 @@
 <script setup lang="ts">
-
+const props = defineProps<{
+    id: number | string,
+    name: string,
+    price: number
+}>();
 
 </script>
 
 <template>
     <div>
-        <h3>teszt</h3>
-        <p>123 Ft</p>   
+        <h3>{{ props.name }}</h3>
+        <p>{{ props.price }} Ft</p>
 
-        <span>id</span>
-
-
+        <span>ID: {{ props.id }}</span>
     </div>
 </template>
 
