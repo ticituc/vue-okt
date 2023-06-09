@@ -39,7 +39,7 @@ describe('HelloWorld', () => {
                 plugins: [createTestingPinia({
                     createSpy: fn,
                     initialState: {
-                        
+
                     },
                 }),],
             },
@@ -47,15 +47,18 @@ describe('HelloWorld', () => {
 
         const webshopStore = useWebshopStore()
 
-        expect(webshopStore.getData).toHaveBeenCalledTimes(1)
+        expect(webshopStore.getData).toHaveBeenCalledTimes(1);
         //const store = useWebshopStore() // uses the testing pinia!
+        websComp.get('button').element.click()
 
+        expect(webshopStore.getData).toHaveBeenCalledTimes(2);
+
+        expect(webshopStore.getData).toBeCalledWith(true);
 
 
         //expect(websComp.text()).contains("webShop Component");
 
         webShopItems.forEach((item) => {
-            console.log("websComp.text()", websComp.text());
             expect(websComp.text()).contains("ID: " + item.id);
             expect(websComp.text()).contains(item.name);
             expect(websComp.text()).contains(item.price + " Ft");

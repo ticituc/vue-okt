@@ -10,7 +10,7 @@
 # Store létrehozása webshop store néven, az adatokat pedig a következőek  lesznek: 
 
 
-{
+    {
         id: 1,
         name: "A 1",
         price: 123

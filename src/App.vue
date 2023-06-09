@@ -26,6 +26,7 @@ function authorization() {
 
 <template>
   <div class="">
+    <example></example>
 
     <header>
       <ex-test></ex-test>

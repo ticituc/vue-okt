@@ -35,8 +35,8 @@ export const useWebshopStore = defineStore('webshop', {
 
     },
     actions: {
-        getData(){
-            
+        getData(forced?: boolean) {
+            console.log("forced", forced);
         }
     },
 })

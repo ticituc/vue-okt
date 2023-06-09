@@ -6,10 +6,14 @@ import { onMounted } from 'vue';
 
 const webshopStore = useWebshopStore();
 
-onMounted(()=>{
-    //webshopStore.getData()
+onMounted(() => {
+    webshopStore.getData()
 })
 
+
+function refreshData() {
+    webshopStore.getData(true)
+}
 
 
 </script>
@@ -17,6 +21,7 @@ onMounted(()=>{
 <template>
     <div>
         <h1>webShop Component</h1>
+        <button @click="refreshData">Refresh</button>
 
         <div v-for="item in webshopStore.items" :id="'webshop-product-' + item.id">
             <WebshopItem :id="item.id" :name="item.name" :price="item.price">
